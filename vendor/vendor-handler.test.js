@@ -1,18 +1,20 @@
 'use strict';
 
-const { handleDelivered, generatePayload } = require('./handler');
+const { emitter } = require('../eventPool');
+const { sendPickup, generatePayload, handleDelivery } = require('./handler');
 
-let payload = null;
 
 describe('Testing our vendor functions', () => {
-    test('Can generate a valid payload object', () => {
-        payload = generatePayload();
-        expect(payload.orderId).toBeTruthy();
-    });
+  test('Can the vendor generate a payload object', () => {
+    let payload = generatePayload();
+    expect(payload.store).toBeTruthy();
+    expect(payload.customer).toBeTruthy();
+    expect(payload.address).toBeTruthy();
+    expect(payload.orderId).toBeTruthy();
+  });
 
-    test('Can handle a delivery', () => {
-        console.log = jest.fn();
-        handleDelivered(payload);
-        expect(console.log).toHaveBeenCalled();
-    });
+  test('Can handle a delivery', () => {
+    let payload = generatePayload();
+    expect(console.log).toHaveBeenCalled();
+  });
 });

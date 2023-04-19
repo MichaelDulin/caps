@@ -5,7 +5,7 @@ const eventEmitter = require('../eventPool');
 
 jest.mock('../eventPool', () => ({
   on: jest.fn(),
-  emit: jest.fn()
+  emit: jest.fn(),
 }));
 
 describe('Testing the driver functionality', () => {

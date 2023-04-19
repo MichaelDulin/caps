@@ -1,22 +1,19 @@
 'use strict';
 
-const Chance = require('chance');
-const chance = new Chance();
-
-function generatePayload() {
+module.exxports = {
+  sendPickup: function (socket, payload) {
+    socket.emit('pickup', payload);
+  },
+  generatePayload: () => {
     return {
-        "store": chance.company(),
-        "orderId": chance.guid(),
-        "customer": chance.name(),
-        "address": chance.address()
-    }
-}
-
-function handleDelivered(payload) {
-    console.log(`Thank you, ${payload.customer}`);
-}
-
-module.exports = {
-    generatePayload,
-    handleDelivered
-}
+      store: '1-206-flowers',
+      orderId: 'xxxxxx-xxxxxxxx-xxxxxxx',
+      customer: 'Michael Dulin',
+      address: '227 161st St SE',
+    };
+  },
+  handleDelivered: (payload) => {
+    console.log('Thank you for your order, ', payload('customer'));
+    process.exit();
+  },
+};
