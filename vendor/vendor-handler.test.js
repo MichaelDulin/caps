@@ -10,5 +10,9 @@ describe('Testing our vendor functions', () => {
         expect(payload.orderId).toBeTruthy();
     });
 
-    test('Can handle a delivery')
-})
+    test('Can handle a delivery', () => {
+        console.log = jest.fn();
+        handleDelivered(payload);
+        expect(console.log).toHaveBeenCalled();
+    });
+});
