@@ -32,16 +32,16 @@ const io = new Server(PORT);
 let capsServer = io.of('/caps');
 
 
-  capsServer.on('connection', (socket)=>{
-    console.log('CLIENT HAS CONNECTED TO CAPS', socket.id);
+capsServer.on('connection', (socket)=>{
+  console.log('CLIENT HAS CONNECTED TO CAPS', socket.id);
 
-    socket.on('join-group', (payload)=>{
-      socket.join(payload['store'])
-    });
+  socket.on('join-group', (payload)=>{
+    socket.join(payload['store']);
+  });
 
-    socket.on(eventPool[0], (payload) =>{
-      socket.broadcast.emit(eventPool[0], payload);
-      console.log(
+  socket.on(eventPool[0], (payload) =>{
+    socket.broadcast.emit(eventPool[0], payload);
+    console.log(
       `Event: ${eventPool[0]},
       time: ${new Date(Date.now()).toDateString()},
       payload:{
@@ -49,34 +49,34 @@ let capsServer = io.of('/caps');
         orderId: ${payload['orderId']},
         customer: ${payload['customer']},
         address: ${payload['address']},
-      } `)
-    });
+      } `);
+  });
 
-    socket.on(eventPool[1], (payload) =>{
-      socket.to(payload.store).emit(eventPool[1],payload);
-      console.log(
-        `Event: ${eventPool[1]},
+  socket.on(eventPool[1], (payload) =>{
+    socket.to(payload.store).emit(eventPool[1],payload);
+    console.log(
+      `Event: ${eventPool[1]},
         time: ${new Date(Date.now()).toDateString()},
         payload:{
           store: ${payload['store']},
           orderId: ${payload['orderId']},
           customer: ${payload['customer']},
           address: ${payload['address']},
-        } `
-      )
-    });
+        } `,
+    );
+  });
 
-    socket.on(eventPool[2], (payload) =>{
-      socket.to(payload.store).emit(eventPool[2],payload);
-      console.log(
-        `Event: ${eventPool[2]},
+  socket.on(eventPool[2], (payload) =>{
+    socket.to(payload.store).emit(eventPool[2],payload);
+    console.log(
+      `Event: ${eventPool[2]},
         time: ${new Date(Date.now()).toDateString()},
         payload:{
           store: ${payload['store']},
           orderId: ${payload['orderId']},
           customer: ${payload['customer']},
           address: ${payload['address']},
-        } `
-      )
-    });
-  })
+        } `,
+    );
+  });
+});
