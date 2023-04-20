@@ -1,8 +1,11 @@
 'use strict';
 
-const eventEmitter = require('../eventPool.js');
-const { generatePayload, handledelivered } = require('./handlers.js');
+const { io } = require('socket.io-client');
+const SERVER_URL = process.env.SERVER_URL || 'http://localhost:3001';
+const { sendPickup, generatePayload, handleDelivered } = require('./handler');
 
-eventEmitter.on('delivered', handledelivered);
+let capsSocket = io(SERVER_URL + '/caps');
 
-eventEmitter.emit('pickup', generatePayload());
+capsSocket.on('delivered', handleDelivered);
+
+sendPickup(capsSocket, generatePayload());
