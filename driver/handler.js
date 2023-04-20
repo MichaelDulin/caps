@@ -7,13 +7,15 @@ const { emitter, eventPool } = require('./../eventPool');
 
 let capsSocket = io(SERVER_URL + '/caps');
 
+capsSocket.on(eventPool[0], (payload) =>{
 
+  capsSocket.emit('join-group', payload);
+  console.log('caps socket on')
 
-function handlePickup(socket) {
-  return function (payload) {
-    socket.emit('in-transit', payload);
-    socket.emit('delivered', payload);
-  };
-}
+  console.log(`DRIVER: picked up ${payload['orderId']}`)
+  capsSocket.emit(eventPool[1], payload);
 
-capsSocket.om('pickup', handlePickup(capsSocket));
+  console.log(`${payload.orderId} in transit`);
+  capsSocket.emit(eventPool[2], payload);
+
+});

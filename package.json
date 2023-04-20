@@ -2,9 +2,8 @@
   "name": "caps",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "eventPool.js",
   "scripts": {
-    "start": "npm start",
     "test": "jest --verbose --coverage"
   },
   "keywords": [],

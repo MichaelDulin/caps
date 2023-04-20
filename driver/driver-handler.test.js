@@ -1,5 +1,7 @@
 'use strict';
 
+// test for delivery pick-up
+
 const handlePickup = require('./handler');
 const eventEmitter = require('../eventPool');
 
